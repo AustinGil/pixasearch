@@ -85,17 +85,29 @@ export default {
   name: 'app',
   data() {
     return {
-      apiKey: '6400514-7eedc3bc38ebd6c5736077941', // Use environment variables on real project
+      // Use environment variables on real project
+      apiKey: process.env.API_KEY || '6400514-7eedc3bc38ebd6c5736077941',
       isLoading: true,
-      error: '',
-      results: []
+      results: [],
+      error: ''
     }
   },
   methods: {
-    fetchImages(params) {
+    fetchImages(options = { per_page: 200 }) {
+
       this.isLoading = true
-      // Could also use axios for compatibility
-      fetch(`https://pixabay.com/api/?key=${this.apiKey}`)
+      // Set up initial query
+      let url = `https://pixabay.com/api/?key=${this.apiKey}`
+
+      // Append each parameter to the query if we have them
+      if (options) {
+        Object.keys(options).forEach((key) => {
+          url += `&${key}=${options[key]}`
+        })
+      }
+
+      // Run the API call
+      fetch(url)
         .then((response) => {
           if (!response.ok) {
             throw Error(response.statusText);
@@ -103,27 +115,25 @@ export default {
           return response.json()
         })
         .then((response) => {
-          console.log(response)
+          // console.log(response)
           this.results = response.hits;
           this.isLoading = false
         })
         .catch((err) => {
-          this.error = 'Oops, something went wrong'
           console.log(err)
+          this.error = err.message
+          this.isLoading = false
         });
     },
     submitForm() {
       this.$emit('formSubmitted', 'test')
     }
   },
-  events: {
-    formSubmitted: function(argument) {
-      // logic
-      console.log('submit')
-    },
-  },
   created() {
     this.fetchImages();
+    this.$on('formSubmitted', (payload) => {
+      console.log(payload)
+    });
   }
 }
 </script>
