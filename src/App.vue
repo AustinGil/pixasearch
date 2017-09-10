@@ -55,6 +55,7 @@ export default {
 
 .results {
   img {
+    margin-top: 15px;
     margin-bottom: 15px;
   }
 }
