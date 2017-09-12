@@ -3,7 +3,7 @@
     <h1>PixaSearch</h1>
     <div class="row">
       <div class="col-md-4">
-        <appSearchForm :formSubmitted="formSubmitted"></appSearchForm>
+        <appSearchForm v-on:formSubmitted="handleFormSubmitted($event)"></appSearchForm>
       </div>
       <div class="col-md-8">
         <appImageGrid :isLoading="isLoading" :results="results" :error="error"></appImageGrid>
@@ -32,7 +32,7 @@ export default {
   },
   methods: {
     fetchImages(options = { per_page: 200 }) {
-
+      this.results = []
       this.isLoading = true
       // Set up initial query
       let url = `https://pixabay.com/api/?key=${this.apiKey}`
@@ -62,13 +62,14 @@ export default {
           this.error = err.message
           this.isLoading = false
         });
+    },
+    handleFormSubmitted(options) {
+      // Send another API fetch
+      this.fetchImages(options)
     }
   },
   created() {
     this.fetchImages();
-    this.$on('formSubmitted', (payload) => {
-      console.log(payload)
-    });
   }
 }
 </script>
