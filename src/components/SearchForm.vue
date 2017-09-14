@@ -125,15 +125,22 @@ export default {
 }
 </script>
 
-<style >
+<style lang="scss">
 .toggle-search-form {
   margin-bottom: 15px;
 }
 
 .search-form__reset {
+  display: block;
   margin-top: 15px;
   border: none;
+  padding: 0;
+  color: #0275d8;
   background: none;
+  &:hover {
+    color: #014c8c;
+    text-decoration: underline;
+  }
 }
 
 @media (min-width: 768px) {

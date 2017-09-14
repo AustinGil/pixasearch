@@ -113,6 +113,10 @@ label {
   width: 100%;
 }
 
+button {
+  cursor: pointer;
+}
+
 img {
   max-width: 100%;
   height: auto;
