@@ -3,7 +3,7 @@
     <h1>PixaSearch</h1>
     <div class="row">
       <div class="col-md-4">
-        <!-- <appSearchForm :filters="filters" :formSubmitted="handleFormSubmitted" :formReset="handleFormReset"></appSearchForm> -->
+        <appSearchForm :filters="filters" :formSubmitted="handleFormSubmitted" :formReset="handleFormReset"></appSearchForm>
       </div>
       <div class="col-md-8">
         <appImageGrid :isLoading="isLoading" :results="results" :error="error"></appImageGrid>
@@ -30,12 +30,12 @@ export default {
       error: '',
       filters: {
         q: '',
-        image_type: '',
-        orientation: '',
-        order: '',
-        category: '',
-        min_width: '',
-        min_height: '',
+        image_type: 'all',
+        orientation: 'all',
+        order: 'default',
+        category: 'all',
+        min_width: '0',
+        min_height: '0',
         editors_choice: '',
         safesearch: '',
         per_page: 200
@@ -83,13 +83,13 @@ export default {
       options = this.filters
       this.fetchImages(options)
     },
-    // handleFormReset() {
-    //   // Get the options based on active filters and send another request
-    //   // this.filters.keys(filter).forEach((key) => {
-    //   //     url += `&${key}=${options[key]}`
-    //   //   })
-    //   console.dir(this.filters)
-    // }
+    handleFormReset() {
+      // Get the options based on active filters and send another request
+      // this.filters.keys(filter).forEach((key) => {
+      //     url += `&${key}=${options[key]}`
+      //   })
+      console.log('this.filters')
+    }
   },
   created() {
     // Send initial request for 200 images

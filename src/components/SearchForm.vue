@@ -55,6 +55,7 @@
       <div class="form-group">
         <label>Categories
           <select class="form-control" name="category" v-model="filters.category">
+            <option value="all" checked>All</option>
             <option value="fashion">Fashion</option>
             <option value="nature">Nature</option>
             <option value="backgrounds">Backgrounds</option>
@@ -105,7 +106,7 @@
 
       <button type="submit" class="btn btn-primary">Submit</button>
 
-      <button type="reset" class="reset-form">Reset Filters</button>
+      <button type="reset" @click="resetForm" class="reset-form">Reset Filters</button>
     </form>
   </div>
 </template>
