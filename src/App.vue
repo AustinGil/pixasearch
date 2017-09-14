@@ -3,7 +3,7 @@
     <h1>PixaSearch</h1>
     <div class="row">
       <div class="col-md-4">
-        <appSearchForm :filters="filters" :formSubmitted="handleFormSubmitted" :formReset="handleFormReset"></appSearchForm>
+        <appSearchForm :filters="filters" @formSubmitted="handleFormSubmitted" @formReset="handleFormReset"></appSearchForm>
       </div>
       <div class="col-md-8">
         <appImageGrid :isLoading="isLoading" :results="results" :error="error"></appImageGrid>
@@ -36,14 +36,16 @@ export default {
         category: 'all',
         min_width: '0',
         min_height: '0',
-        editors_choice: '',
-        safesearch: '',
+        editors_choice: false,
+        safesearch: false,
         per_page: 200
       }
     }
   },
   methods: {
     fetchImages(options) {
+
+      console.log(options)
 
       // Reset results and set app to loading
       this.results = []
@@ -58,7 +60,7 @@ export default {
           url += `&${key}=${options[key]}`
         })
       }
-
+      console.log(url)
       // Run the API call
       fetch(url)
         .then((response) => {
@@ -80,15 +82,22 @@ export default {
     },
     handleFormSubmitted() {
       // Get the options based on active filters and send another request
-      options = this.filters
-      this.fetchImages(options)
+      this.fetchImages(this.filters)
     },
     handleFormReset() {
-      // Get the options based on active filters and send another request
-      // this.filters.keys(filter).forEach((key) => {
-      //     url += `&${key}=${options[key]}`
-      //   })
-      console.log('this.filters')
+      // Reset form filters to default values
+      this.filters = {
+        q: '',
+        image_type: 'all',
+        orientation: 'all',
+        order: 'default',
+        category: 'all',
+        min_width: '0',
+        min_height: '0',
+        editors_choice: false,
+        safesearch: false,
+        per_page: 200
+      }
     }
   },
   created() {
@@ -102,6 +111,11 @@ export default {
 // Global styles
 label {
   width: 100%;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
 }
 
 #app {

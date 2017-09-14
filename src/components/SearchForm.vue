@@ -4,7 +4,7 @@
       Toggle Search Form
     </button>
 
-    <form id="search-form" @submit.prevent="submitForm" class="collapse">
+    <form id="search-form" class="search-form collapse" @submit.prevent="submitForm">
       <div class="form-group">
         <label>
           Search
@@ -106,7 +106,7 @@
 
       <button type="submit" class="btn btn-primary">Submit</button>
 
-      <button type="reset" @click="resetForm" class="reset-form">Reset Filters</button>
+      <button type="reset" @click.prevent="resetForm" class="search-form__reset">Reset Filters</button>
     </form>
   </div>
 </template>
@@ -130,8 +130,14 @@ export default {
   margin-bottom: 15px;
 }
 
+.search-form__reset {
+  margin-top: 15px;
+  border: none;
+  background: none;
+}
+
 @media (min-width: 768px) {
-  #search-form {
+  .search-form {
     display: block;
   }
 }

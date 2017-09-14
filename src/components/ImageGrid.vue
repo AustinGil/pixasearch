@@ -5,8 +5,9 @@
       {{ error }}
     </div>
     <div v-else class="results row">
-      <div v-for="result in results" :key="result.id" class="col-sm-6 col-md-4">
-        <img :src="result.previewURL">
+      <div v-for="result in results" :key="result.id" class="result col-sm-6 col-md-4">
+        <img :src="result.previewURL" class="result__img">
+        <a class="result__download" :href="result.webformatURL" download>Download</a>
       </div>
     </div>
   </div>
@@ -20,9 +21,14 @@ export default {
 
 <style lang="scss">
 .results {
+  text-align: center;
   img {
     margin-top: 15px;
     margin-bottom: 15px;
   }
+}
+
+.result__download {
+  display: block;
 }
 </style>
