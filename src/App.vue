@@ -3,7 +3,7 @@
     <h1>PixaSearch</h1>
     <div class="row">
       <div class="col-md-4">
-        <appSearchForm v-on:formSubmitted="handleFormSubmitted($event)"></appSearchForm>
+        <appSearchForm :filters="filters" v-on:formSubmitted="handleFormSubmitted($event)"></appSearchForm>
       </div>
       <div class="col-md-8">
         <appImageGrid :isLoading="isLoading" :results="results" :error="error"></appImageGrid>
@@ -27,11 +27,23 @@ export default {
       apiKey: process.env.API_KEY || '6400514-7eedc3bc38ebd6c5736077941',
       isLoading: true,
       results: [],
-      error: ''
+      error: '',
+      filters: {
+        q: '',
+        image_type: '',
+        orientation: '',
+        order: '',
+        category: '',
+        min_width: '',
+        min_height: '',
+        editors_choice: '',
+        safesearch: '',
+        per_page: 200
+      }
     }
   },
   methods: {
-    fetchImages(options = { per_page: 200 }) {
+    fetchImages(options) {
       this.results = []
       this.isLoading = true
       // Set up initial query
@@ -43,6 +55,8 @@ export default {
           url += `&${key}=${options[key]}`
         })
       }
+
+      console.log(url)
 
       // Run the API call
       fetch(url)
@@ -64,12 +78,16 @@ export default {
         });
     },
     handleFormSubmitted(options) {
+      // Object.keys(options).forEach((key) => {
+      //   url += `&${key}=${options[key]}`
+      // })
+      options = this.filters
       // Send another API fetch
       this.fetchImages(options)
     }
   },
   created() {
-    this.fetchImages();
+    this.fetchImages({ per_page: 200 });
   }
 }
 </script>

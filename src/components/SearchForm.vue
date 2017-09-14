@@ -8,27 +8,27 @@
       <div class="form-group">
         <label>
           Search
-          <input type="text" name="q" class="form-control" maxlength="100">
+          <input type="text" name="q" ref="q" class="form-control" maxlength="100">
         </label>
       </div>
 
       <div class="form-group">
         <label>Image Type
-          <select class="form-control" name="image_type">
-            <option>All</option>
-            <option>Photo</option>
-            <option>Illustration</option>
-            <option>Vector</option>
+          <select class="form-control" name="image_type" ref="image_type">
+            <option value="all">All</option>
+            <option value="photo">Photo</option>
+            <option value="illustration">Illustration</option>
+            <option value="vector">Vector</option>
           </select>
         </label>
       </div>
 
       <div class="form-group">
         <label>Orientation
-          <select class="form-control" name="orientation">
-            <option>All</option>
-            <option>Horizontal</option>
-            <option>Vertical</option>
+          <select class="form-control" name="orientation" ref="orientation">
+            <option value="all">All</option>
+            <option value="horizontal">Horizontal</option>
+            <option value="vertical">Vertical</option>
           </select>
         </label>
       </div>
@@ -37,69 +37,69 @@
         Sort Order
         <div class="form-check">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="order" value="default" checked> Default
+            <input type="radio" class="form-check-input" name="order" ref="order" value="default" checked> Default
           </label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="order" value="popular"> Popular
+            <input type="radio" class="form-check-input" name="order" ref="order" value="popular"> Popular
           </label>
         </div>
         <div class="form-check">
           <label class="form-check-label">
-            <input type="radio" class="form-check-input" name="order" value="latest"> Latest
+            <input type="radio" class="form-check-input" name="order" ref="order" value="latest"> Latest
           </label>
         </div>
       </div>
 
       <div class="form-group">
         <label>Categories
-          <select class="form-control" name="category">
-            <option>Fashion</option>
-            <option>Nature</option>
-            <option>Backgrounds</option>
-            <option>Science</option>
-            <option>Education</option>
-            <option>People</option>
-            <option>Feelings</option>
-            <option>Religion</option>
-            <option>Health</option>
-            <option>Places</option>
-            <option>Animals</option>
-            <option>Industry</option>
-            <option>Food</option>
-            <option>Computer</option>
-            <option>Transportation</option>
-            <option>Buildings</option>
-            <option>Business</option>
-            <option>Music</option>
+          <select class="form-control" name="category" ref="category">
+            <option value="fashion">Fashion</option>
+            <option value="nature">Nature</option>
+            <option value="backgrounds">Backgrounds</option>
+            <option value="science">Science</option>
+            <option value="education">Education</option>
+            <option value="people">People</option>
+            <option value="feelings">Feelings</option>
+            <option value="religion">Religion</option>
+            <option value="health">Health</option>
+            <option value="places">Places</option>
+            <option value="animals">Animals</option>
+            <option value="industry">Industry</option>
+            <option value="food">Food</option>
+            <option value="computer">Computer</option>
+            <option value="transportation">Transportation</option>
+            <option value="buildings">Buildings</option>
+            <option value="business">Business</option>
+            <option value="music">Music</option>
           </select>
         </label>
       </div>
 
       <div class="form-group">
         <label>
-          Min Width
-          <input type="number" name="min_width" class="form-control number" min="0">
+          Min Width (px)
+          <input type="number" name="min_width" ref="min_width" class="form-control number" min="0">
         </label>
       </div>
 
       <div class="form-group">
         <label>
-          Min Height
-          <input type="number" name="min_height" class="form-control number" min="0">
+          Min Height (px)
+          <input type="number" name="min_height" ref="min_height" class="form-control number" min="0">
         </label>
       </div>
 
       <div class="form-check">
         <label class="form-check-label">
-          <input type="checkbox" name="editors_choice" class="form-check-input"> Editor's Choice
+          <input type="checkbox" name="editors_choice" ref="editors_choice" class="form-check-input"> Editor's Choice
         </label>
       </div>
 
       <div class="form-check">
         <label class="form-check-label">
-          <input type="checkbox" name="safesearch" class="form-check-input"> Safesearch
+          <input type="checkbox" name="safesearch" ref="safesearch" class="form-check-input"> Safesearch
         </label>
       </div>
 
@@ -114,10 +114,18 @@ export default {
   props: ['formSubmitted'],
   methods: {
     submitForm(event) {
-      console.log(event.target)
       let options = {
-        per_page: 10
+        q: this.$refs.q.value,
+        image_type: this.$refs.image_type.value,
+        orientation: this.$refs.orientation.value,
+        order: this.$refs.order.value,
+        category: this.$refs.category.value,
+        min_width: this.$refs.min_width.value,
+        min_height: this.$refs.min_height.value,
+        editors_choice: this.$refs.editors_choice.value,
+        safesearch: this.$refs.safesearch.value
       }
+      console.log(options)
       this.$emit('formSubmitted', options)
     }
   }
