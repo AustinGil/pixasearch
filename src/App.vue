@@ -25,9 +25,6 @@ export default {
     return {
       // Use environment variables on real project
       apiKey: process.env.API_KEY || '6400514-7eedc3bc38ebd6c5736077941',
-      isLoading: true,
-      results: [],
-      error: '',
       filters: {
         q: '',
         image_type: 'all',
@@ -39,14 +36,19 @@ export default {
         editors_choice: false,
         safesearch: false,
         per_page: 200
-      }
+      },
+      isLoading: false,
+      results: [],
+      error: ''
     }
   },
   methods: {
+    /**
+     * Fetches images from the Pixabay API
+     * 
+     * @argument {Object} options Key value pairs for Pixabay API arguments 
+     */
     fetchImages(options) {
-
-      console.log(options)
-
       // Reset results and set app to loading
       this.results = []
       this.isLoading = true
