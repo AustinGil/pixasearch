@@ -18,6 +18,11 @@ export default {
 }
 </script>
 
-<style >
-
+<style lang="scss">
+.results {
+  img {
+    margin-top: 15px;
+    margin-bottom: 15px;
+  }
+}
 </style>

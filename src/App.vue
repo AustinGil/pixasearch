@@ -44,8 +44,11 @@ export default {
   },
   methods: {
     fetchImages(options) {
+
+      // Reset results and set app to loading
       this.results = []
       this.isLoading = true
+
       // Set up initial query
       let url = `https://pixabay.com/api/?key=${this.apiKey}`
 
@@ -55,8 +58,6 @@ export default {
           url += `&${key}=${options[key]}`
         })
       }
-
-      console.log(url)
 
       // Run the API call
       fetch(url)
@@ -78,34 +79,32 @@ export default {
         });
     },
     handleFormSubmitted(options) {
-      // Object.keys(options).forEach((key) => {
-      //   url += `&${key}=${options[key]}`
-      // })
+      // Get the options based on active filters and send another request
       options = this.filters
-      // Send another API fetch
       this.fetchImages(options)
     }
   },
   created() {
+    // Send initial request for 200 images
     this.fetchImages({ per_page: 200 });
   }
 }
 </script>
 
 <style lang="scss">
+// Global styles
+label {
+  width: 100%;
+}
+
 #app {
-  font-family: 'Avenir', Helvetica, Arial, sans-serif;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  text-align: center;
-  color: #2c3e50;
+  font-family: Helvetica, Arial, sans-serif;
   margin-top: 60px;
 }
 
-.results {
-  img {
-    margin-top: 15px;
-    margin-bottom: 15px;
+@media (min-width: 768px) {
+  .hide-md {
+    display: none;
   }
 }
 </style>
