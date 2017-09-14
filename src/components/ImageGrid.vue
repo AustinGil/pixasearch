@@ -5,8 +5,8 @@
       {{ error }}
     </div>
     <div v-else class="results row">
-      <div v-for="result in results" class="col-sm-6 col-md-4">
-        <img :key="result.id" :src="result.previewURL">
+      <div v-for="result in results" :key="result.id" class="col-sm-6 col-md-4">
+        <img :src="result.previewURL">
       </div>
     </div>
   </div>

@@ -4,11 +4,11 @@
       Toggle Search Form
     </button>
 
-    <form id="search-form" @submit.prevent="submitForm($event)" class="collapse">
+    <form id="search-form" @submit.prevent="submitForm" class="collapse">
       <div class="form-group">
         <label>
           Search
-          <input type="text" name="q" ref="q" v-model="filters.q" class="form-control" maxlength="100">
+          <input type="text" name="q" v-model="filters.q" class="form-control" maxlength="100">
         </label>
       </div>
 
@@ -103,18 +103,22 @@
         </label>
       </div>
 
-      <!-- Orientation Category Min_width Min_height Editors_choice safesearch -->
       <button type="submit" class="btn btn-primary">Submit</button>
+
+      <button type="reset" class="reset-form">Reset Filters</button>
     </form>
   </div>
 </template>
 
 <script>
 export default {
-  props: ['filters', 'formSubmitted'],
+  props: ['filters', 'formSubmitted', 'formReset'],
   methods: {
-    submitForm(event) {
+    submitForm() {
       this.$emit('formSubmitted')
+    },
+    resetForm() {
+      this.$emit('formReset')
     }
   }
 }

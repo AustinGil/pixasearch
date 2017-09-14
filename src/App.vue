@@ -3,7 +3,7 @@
     <h1>PixaSearch</h1>
     <div class="row">
       <div class="col-md-4">
-        <appSearchForm :filters="filters" v-on:formSubmitted="handleFormSubmitted($event)"></appSearchForm>
+        <!-- <appSearchForm :filters="filters" :formSubmitted="handleFormSubmitted" :formReset="handleFormReset"></appSearchForm> -->
       </div>
       <div class="col-md-8">
         <appImageGrid :isLoading="isLoading" :results="results" :error="error"></appImageGrid>
@@ -78,11 +78,18 @@ export default {
           this.isLoading = false
         });
     },
-    handleFormSubmitted(options) {
+    handleFormSubmitted() {
       // Get the options based on active filters and send another request
       options = this.filters
       this.fetchImages(options)
-    }
+    },
+    // handleFormReset() {
+    //   // Get the options based on active filters and send another request
+    //   // this.filters.keys(filter).forEach((key) => {
+    //   //     url += `&${key}=${options[key]}`
+    //   //   })
+    //   console.dir(this.filters)
+    // }
   },
   created() {
     // Send initial request for 200 images
