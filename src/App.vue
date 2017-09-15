@@ -46,7 +46,7 @@ export default {
     /**
      * Fetches images from the Pixabay API
      * 
-     * @argument {Object} options Key value pairs for Pixabay API arguments 
+     * @param {Object} options Object with key value pairs for Pixabay API parameter 
      */
     fetchImages(options) {
       // Reset results and set app to loading
@@ -62,7 +62,7 @@ export default {
           url += `&${key}=${options[key]}`
         })
       }
-      console.log(url)
+
       // Run the API call
       fetch(url)
         .then((response) => {
